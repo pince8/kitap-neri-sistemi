@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kitaplar</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <style>
+        /* Container'ı düzenledik */
+        .container {
+    width: 1000px; /* Çok büyük değildi */
+    margin: 0 auto;
+    padding: 20px;
+    background: linear-gradient(270deg, #d3bcdc, #a29bfe);
+    border-radius: 10px;
+    box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
+}
+
+    
+        .kitaplar-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr); /* Her zaman 3 sütun */
+    gap: 30px; /* Kartlar arası mesafe */
+    justify-content: center; /* Ortalamak için */
+    padding: 20px;
+}
+
+    
+        /* Her kitap kartı */
+        .kitap-karti {
+            border: 1px solid #ccc;
+            border-radius: 10px;
+            padding: 10px;
+            width: 250px;
+            text-align: center;
+            box-shadow: 2px 2px 5px rgba(0,0,0,0.1);
+            background-color: #fff;
+        }
+    
+        /* Kitap resmi */
+        .kitap-resmi {
+            width: 150px;
+            height: 220px;
+            object-fit: cover;
+            margin-bottom: 10px;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>📚 Keşfetmeye Değer 100 Kitap 📚</h1>
+        <nav>
+            <ul>
+                <li><a href="{{ url_for('home') }}">Ana Sayfa</a></li>
+                <li><a href="{{ url_for('kitap') }}">Kitaplar</a></li>
+                <li><a href="{{ url_for('about') }}">Hakkımızda</a></li>
+                <li><a href="{{ url_for('iletisim') }}">İletişim</a></li>
+                <li><a href="{{ url_for('account') }}">Hesabım</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <main>
+        <div class="container">
+            <h2 style="font-size: 30px; color: #4B0082; text-align: center; margin-bottom: 30px; text-shadow: 1px 1px 3px rgba(0,0,0,0.2);">
+                  📖 Okuma Keyfinizi Zirveye Taşıyacak Efsanevi Kitaplar 📖 
+            </h2>
+            
+            
+            <div class="kitaplar-grid" id="kitap-listesi">
+                <!-- JavaScript ile kitaplar eklenecek -->
+            </div>
+        </div>
+    </main>
+
+    <script>
+   const books = [
+    ["The Great Gatsby", "F. Scott Fitzgerald", 4.5, "https://example.com/gatsby", "https://cdn.kobo.com/book-images/4ea3a180-2892-4a01-8148-0199aec98452/1200/1200/False/the-great-gatsby-379.jpg"],
+    ["1984", "George Orwell", 4.8, "https://example.com/1984", "https://m.media-amazon.com/images/I/71rpa1-kyvL.AC_UF1000,1000_QL80.jpg"],
+    ["Pride and Prejudice", "Jane Austen", 4.7, "https://example.com/pride", "https://images-na.ssl-images-amazon.com/images/S/compressed.photo.goodreads.com/books/1681804503i/129915654.jpg"],
+    ["To Kill a Mockingbird", "Harper Lee", 4.6, "https://example.com/mockingbird", "https://m.media-amazon.com/images/I/81gepf1eMqL.AC_UF1000,1000_QL80.jpg"],
+    ["Moby-Dick", "Herman Melville", 4.2, "https://example.com/mobydick", "https://m.media-amazon.com/images/I/91xNmlf86yL.AC_UF1000,1000_QL80.jpg"],
+    ["The Catcher in the Rye", "J.D. Salinger", 4.1, "https://example.com/catcher", "https://m.media-amazon.com/images/I/7108sdEUEGL.jpg"],
+    ["The Hobbit", "J.R.R. Tolkien", 4.7, "https://example.com/hobbit", "https://upload.wikimedia.org/wikipedia/en/4/4a/TheHobbit_FirstEdition.jpg "],
+    ["War and Peace", "Leo Tolstoy", 4.4, "https://example.com/warpeace", "https://m.media-amazon.com/images/I/81W6BFaJJWL.AC_UF1000,1000_QL80.jpg"],
+    ["Frankenstein", "Mary Shelley", 4.0, "https://example.com/frankenstein", "https://m.media-amazon.com/images/I/41CC3AXG7nL.SY445_SX342.jpg"],
+    ["Jane Eyre", "Charlotte Brontë", 4.5, "https://example.com/janeeyre", "https://images.saymedia-content.com/.image/t_share/MTc5ODE1MjA1MzQ4MzIwODc5/book-review-jane-eyre-by-charlotte-bronte.jpg "],
+    ["The Odyssey", "Homer", 4.6, "https://example.com/odyssey", "https://prodimage.images-bn.com/pimages/9780140383096_p0_v3_s600x595.jpg "],
+    ["The Picture of Dorian Gray", "Oscar Wilde", 4.3, "https://example.com/doriangray", "https://www.panamayayincilik.com/images/urunler/The-Picture-of-Dorian-Gray-resim-889.jpg "],
+    ["Crime and Punishment", "Fyodor Dostoevsky", 4.5, "https://example.com/crimeandpunishment", "https://m.media-amazon.com/images/I/41MSw2tsaRL.SY445_SX342.jpg"],
+    ["The Divine Comedy", "Dante Alighieri", 4.7, "https://example.com/divinecomedy", "https://m.media-amazon.com/images/I/91vybHeMSxL.AC_UF1000,1000_QL80.jpg"],
+    ["Les Misérables", "Victor Hugo", 4.6, "https://example.com/lesmiserables", "https://m.media-amazon.com/images/I/91vybHeMSxL.AC_UF1000,1000_QL80.jpg"],
+    ["Dracula", "Bram Stoker", 4.4, "https://example.com/dracula", "  https://d28hgpri8am2if.cloudfront.net/book_images/onix/cvr9781626864641/les-miserables-9781626864641_lg.jpg"],
+    ["The Brothers Karamazov", "Fyodor Dostoevsky", 4.7, "https://example.com/brotherskaramazov", "https://m.media-amazon.com/images/I/81Q2+mMrj0L.SY466.jpg"],
+    ["The Scarlet Letter", "Nathaniel Hawthorne", 4.2, "https://example.com/scarletletter", "https://m.media-amazon.com/images/I/51KWvOrvybL.SY445_SX342.jpg"],
+    ["The War of the Worlds", "H.G. Wells", 4.3, "https://example.com/waroftheworlds", "https://m.media-amazon.com/images/I/81qVutOsNNL.SY425.jpg"],
+    ["Wuthering Heights", "Emily Brontë", 4.5, "https://example.com/wutheringheights", "https://m.media-amazon.com/images/I/81tLBSmSEmL.SY425.jpg"],
+    ["The Alchemist", "Paulo Coelho", 4.6, "https://example.com/alchemist", "https://m.media-amazon.com/images/I/71aFt4+OTOL.jpg"]
+
+    // Daha fazla kitap ekleyebilirsin...
+];
+
+
+    const kitapListesi = document.getElementById('kitap-listesi');
+
+    books.forEach(book => {
+        const card = document.createElement('div');
+        card.className = 'kitap-karti';
+        card.innerHTML = `
+            <img src="${book[4]}" alt="${book[0]}" class="kitap-resmi">
+            <h3><a href="${book[3]}" target="_blank">${book[0]}</a></h3>
+            <p><em>Yazar:</em> ${book[1]}</p>
+            <p><em>Puan:</em> ⭐ ${book[2]}</p>
+        `;
+        kitapListesi.appendChild(card);
+    });
+    </script>
+
+</body>
+</html>

@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="tr">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kitap Öneri Sistemi</title>
+    <link rel="stylesheet" href="static/style.css"> <!-- Dosya doğrudan yol ile çağrıldı -->
+</head>
+
+<body>
+    <header>
+        <h1>📚 Bir Kitap Seç Yeni Bir Dünya Keşfet! 📚</h1>
+        <nav>
+            <ul>
+                <li><a href="{{ url_for('home') }}">Ana Sayfa</a></li>
+                <li><a href="{{ url_for('kitap') }}">Kitaplar</a></li>
+                <li><a href="{{ url_for('about') }}">Hakkımızda</a></li>
+                <li><a href="{{ url_for('iletisim') }}">İletişim</a></li>
+                <li><a href="{{ url_for('account') }}">Hesabım</a></li>
+            </ul>
+        </nav>
+    </header>
+    <main>
+        <div class="container">
+            <h2>Ne Okuyacağını Düşünme, Biz Senin İçin Önerelim!</h2>
+            <div class="input-container">
+                <input type="text" id="kitap-input" placeholder="Sevdiğin bir kitabın adını yaz...">
+                <button id="oneri-btn">ÖNERİ AL</button>
+            </div>
+            <div id="sonuc-container" style="display:none;"></div>
+        </div>
+    </main>
+
+    <script>
+        document.getElementById('oneri-btn').addEventListener('click', async () => {
+            const kitapAdi = document.getElementById('kitap-input').value.trim();
+            if (!kitapAdi) {
+                alert("Lütfen bir kitap adı girin!");
+                return;
+            }
+
+            try {
+                const response = await fetch('/recommend', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({ title: kitapAdi })
+                });
+
+                if (response.status === 401) {
+                    window.location.href = "login.html"; // yönlendirme Jinja olmadan düz şekilde yapıldı
+                    return;
+                }
+
+                const data = await response.json();
+                const sonucContainer = document.getElementById('sonuc-container');
+                sonucContainer.innerHTML = `
+                    <h3>Öneriler:</h3>
+                    <ul>
+                        ${data.map(kitap =>
+                            `<li><b>${kitap.Title}</b> (${kitap['Main Genre']}) - Puan: ${kitap.Rating}</li>`
+                        ).join('')}
+                    </ul>
+                `;
+                sonucContainer.style.display = 'block';
+
+            } catch (error) {
+                console.error("Hata:", error);
+                alert("Bir hata oluştu");
+            }
+        });
+    </script>
+</body>
+
+</html>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!-- 
+
+ <!DOCTYPE html>
+<html lang="tr">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kitap Öneri Sistemi</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+
+<body>
+    <header>
+        <h1>📚 Bir Kitap Seç Yeni Bir Dünya Keşfet! 📚</h1>
+        <nav>
+            <ul>
+                <li><a href="#">Ana Sayfa</a></li>
+                <li><a href="#">Kitaplar</a></li>
+                <li><a href="#">Hakkımızda</a></li>
+                <li><a href="#">İletişim</a></li>
+                <li></li><a href="account.html">Profilim</a></li>
+               
+            </ul>
+        </nav>
+    </header>
+    <main>
+        <div class="container">
+            <h2>Ne Okuyacağını Düşünme, Biz Senin İçin Önerelim!</h2>
+            <div class="input-container">
+                <input type="text" id="kitap-input" placeholder="Sevdiğin bir kitabın adını yaz...">
+                <button id="oneri-btn">ÖNERİ AL</button>
+            </div>
+        </div>
+    </main>
+</body>
+
+</html>  -->

@@ -1,0 +1,167 @@
+/* Genel Sayfa Stili */
+body {
+    font-family: 'Arial', sans-serif;
+    text-align: center;
+    padding: 0;
+    margin: 0;
+    background: linear-gradient(270deg, #cdb3d8, #3498db, #a29bfe);
+    background-size: 400% 400%;
+    animation: gradientBG 10s ease infinite;
+    color: #2c3e50;
+}
+
+/* Header (Üst Menü) */
+header {
+    background: rgba(44, 62, 80, 0.9);
+    color: white;
+    padding: 20px 0;
+    text-align: center;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+}
+
+/* Başlık Stili */
+header h1 {
+    font-size: 32px;
+    margin: 0;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    animation: glow 2s infinite alternate;
+}
+
+/* Menü */
+nav ul {
+    list-style: none;
+    padding: 0;
+    display: flex;
+    justify-content: center;
+    margin-top: 10px;
+}
+
+nav ul li {
+    margin: 0 15px;
+}
+
+nav ul li a {
+    color: white;
+    text-decoration: none;
+    font-size: 18px;
+    padding: 10px 20px;
+    transition: all 0.3s ease-in-out;
+    border-radius: 5px;
+}
+
+nav ul li a:hover {
+    background: #6c5ce7;
+    transform: scale(1.1);
+}
+
+/* Ana İçerik */
+main {
+    padding: 50px 20px;
+}
+
+.container {
+    background: rgba(255, 255, 255, 0.9);
+    padding: 20px;
+    width: 50%;
+    margin: auto;
+    border-radius: 15px;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+    transition: transform 0.3s ease-in-out;
+}
+
+/* Mouse üzerine gelince büyüme efekti */
+.container:hover {
+    transform: scale(1.03);
+}
+
+/* Input ve Buton */
+.input-container {
+    margin-top: 20px;
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+}
+
+input {
+    padding: 12px;
+    width: 250px;
+    font-size: 16px;
+    border: 2px solid #6c5ce7;
+    border-radius: 5px;
+    transition: all 0.3s ease;
+}
+
+/* Input üzerine gelince */
+input:focus {
+    border-color: #a29bfe;
+    outline: none;
+    box-shadow: 0 0 10px rgba(162, 155, 254, 0.8);
+}
+
+/* Buton */
+button {
+    padding: 12px 20px;
+    font-size: 16px;
+    color: white;
+    background: linear-gradient(135deg, #6c5ce7, #3498db);
+    border: none;
+    cursor: pointer;
+    border-radius: 50px;
+    transition: all 0.3s ease-in-out;
+    font-weight: bold;
+}
+
+/* Buton hover efekti */
+button:hover {
+    background: linear-gradient(135deg, #3498db, #6c5ce7);
+    transform: scale(1.1);
+    box-shadow: 0 0 15px rgba(108, 92, 231, 0.8);
+}
+
+/* Öneri Listesi */
+h2 {
+    margin-top: 30px;
+    font-size: 22px;
+    color: #2c3e50;
+}
+
+ul {
+    list-style: none;
+    padding: 0;
+    margin-top: 20px;
+}
+
+li {
+    font-size: 20px;
+    background: #6c5ce7;
+    color: white;
+    padding: 15px;
+    margin: 12px auto;
+    width: 60%;
+    border-radius: 10px;
+    box-shadow: 3px 3px 15px rgba(0, 0, 0, 0.2);
+    transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out, background 0.3s ease-in-out;
+}
+
+/* Mouse ile üzerine gelince */
+li:hover {
+    transform: translateY(-5px);
+    background: #a29bfe;
+    box-shadow: 3px 3px 20px rgba(108, 92, 231, 0.6);
+}
+
+/* Animasyonlar */
+@keyframes glow {
+    from { text-shadow: 0 0 5px white; }
+    to { text-shadow: 0 0 15px white; }
+}
+
+@keyframes gradientBG {
+    0% { background-position: 0% 50%; }
+    50% { background-position: 100% 50%; }
+    100% { background-position: 0% 50%; }
+}
